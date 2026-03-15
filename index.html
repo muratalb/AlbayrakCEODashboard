@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CEO Weekly Operations Dashboard | Albayrak Grubu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="dashboard">
+      <header class="topbar card">
+        <div>
+          <p class="eyebrow">Albayrak Grubu</p>
+          <h1>CEO Haftalık Operasyon Dashboard</h1>
+          <p class="subtitle">Toplantı Özeti • Haftalık Operasyon Performansı</p>
+        </div>
+        <div class="week-box">
+          <p id="reportDateLabel">Rapor Tarihi</p>
+          <strong id="reportDate"></strong>
+        </div>
+      </header>
+
+      <section class="kpi-grid" id="kpiGrid"></section>
+
+      <div class="layout-grid">
+        <section class="main-column">
+          <article class="card section-card">
+            <div class="section-head">
+              <h2>Beton Santralleri</h2>
+              <span class="muted">Haftalık üretim / tahsilat / plan</span>
+            </div>
+            <div id="betonBars" class="bar-list"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tesis</th>
+                    <th>Üretim (m³)</th>
+                    <th>Tahsilat</th>
+                    <th>Gelecek Hafta Plan (m³)</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="betonTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card section-card">
+            <div class="section-head">
+              <h2>Agrega Tesisleri</h2>
+              <span class="muted">Üretim / sevk / stok / teknik risk</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tesis</th>
+                    <th>Üretim (ton)</th>
+                    <th>Sevk (ton)</th>
+                    <th>Stok</th>
+                    <th>Teknik Risk</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="agregaTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card section-card split-2">
+            <div>
+              <div class="section-head">
+                <h2>Araç ve İş Makinesi</h2>
+              </div>
+              <ul class="metric-list" id="vehicleMetrics"></ul>
+              <h3>Açık Arızalar</h3>
+              <ul id="openFaults" class="bullet-list"></ul>
+            </div>
+            <div>
+              <div class="section-head">
+                <h2>Mekanik Durum</h2>
+              </div>
+              <ul class="metric-list" id="mechanicMetrics"></ul>
+              <h3>Yönetim Onayı Gerekenler</h3>
+              <ul id="mechanicApprovals" class="bullet-list"></ul>
+            </div>
+          </article>
+        </section>
+
+        <aside class="side-column">
+          <article class="card alarm-card">
+            <div class="section-head">
+              <h2>Haftanın Kritik Konuları</h2>
+            </div>
+            <ul id="criticalIssues" class="alert-list"></ul>
+          </article>
+        </aside>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
