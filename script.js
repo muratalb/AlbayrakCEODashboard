@@ -1,65 +1,92 @@
-const dashboardData = {
+const data = {
   reportDate: "Hafta 11 • 2026",
-  beton: [
+  concreteData: [
     {
-      ad: "Finike Beton Santrali",
-      uretim_m3: 2693.5,
-      tahsilat_tl: 1268925,
-      plan_m3_next_week: 1343,
-      genel_durum: "Yeşil"
+      key: "finike",
+      plant: "Finike Beton Santrali",
+      production_m3: 2693.5,
+      trip_count: 291,
+      next_week_plan_m3: 1343,
+      featured_customer: "Ahmet Yenigün 240 m³, Hill Grup 266 m³",
+      next_week_jobs: "Yaztaş 120 m³, Kemal Gökçe ve Onur Konsantre 100 m³",
+      collection_tl: 1268925,
+      market_note: "Bu hafta pazarda fiyat artışı yaşandı",
+      lost_job_note: "HSD'nin yönlendirdiği sahil güvenlik müteahhidi çekle çalışmak istediği için iş olmadı",
+      overall_status: "Yeşil"
     },
     {
-      ad: "Kaş Beton Santrali",
-      uretim_m3: 1024,
-      tahsilat_tl: 2510005,
-      plan_m3_next_week: 500,
-      personel_eksigi: "Operatör eksikliği",
-      genel_durum: "Sarı"
+      key: "kas",
+      plant: "Kaş Beton Santrali",
+      production_m3: 1024,
+      trip_count: 143,
+      next_week_plan_m3: 500,
+      featured_customer: "Kanyon Mimarlık",
+      next_week_jobs: "Yok",
+      collection_tl: 2510005,
+      market_note: "Fiyat düşük olduğu için rekabet baskısı var",
+      lost_job_note: "Fiyat yükseldiği için iş Atlas Beton’a gitti",
+      personnel_shortage: "Operatör eksikliği",
+      overall_status: "Sarı"
     },
     {
-      ad: "Kalkan Beton Santrali",
-      uretim_m3: 1110,
-      tahsilat_tl: 2500000,
-      plan_m3_next_week: 650,
-      pazar_notu: "Rakip firma yaklaşık 300 TL daha düşük fiyat veriyor",
-      genel_durum: "Yeşil"
+      key: "kalkan",
+      plant: "Kalkan Beton Santrali",
+      production_m3: 1110,
+      trip_count: 157,
+      next_week_plan_m3: 650,
+      featured_customer: "İZZ Yapı 194 m³",
+      next_week_jobs: "İZZ Yapı 250 m³",
+      collection_tl: 2500000,
+      market_note: "Rakip firma yaklaşık 300 TL daha düşük fiyat veriyor",
+      lost_job_note: "Rakiplerin fiyatı daha aşağıda olduğu için kaçan iş oldu",
+      critical_failure: "Silo helezonları söküldü",
+      overall_status: "Yeşil"
     },
     {
-      ad: "Antalya Beton Santrali",
-      uretim_m3: 580,
-      tahsilat_tl: 40000,
-      plan_m3_next_week: 500,
-      genel_durum: "Yeşil"
+      key: "antalya",
+      plant: "Antalya Beton Santrali",
+      production_m3: 580,
+      trip_count: 53,
+      next_week_plan_m3: 500,
+      featured_customer: "Uçar İnşaat, Akil Global",
+      next_week_jobs: "Big Yapı",
+      collection_tl: 40000,
+      overall_status: "Yeşil"
+    },
+    { key: "elmali", plant: "Elmalı Beton", no_weekly_data: true, note: "Bu hafta üretim raporu yok" }
+  ],
+  aggregateData: [
+    {
+      key: "finike",
+      plant: "Finike Agrega Tesisi",
+      production_ton: 15750,
+      dispatch_ton: 14550,
+      truck_trip_count: 622,
+      kirma_kum_stock: "Dikkat",
+      stock_3: "Normal",
+      critical_failure: "Yok",
+      overall_status: "Yeşil"
+    },
+    {
+      key: "kas",
+      plant: "Kaş Agrega Tesisi",
+      production_ton: 5118.62,
+      dispatch_ton: 2464.87,
+      truck_trip_count: 242,
+      kirma_kum_stock: "Normal",
+      stock_3: "Kritik",
+      critical_failure: "Bunker besleme bandı koptu",
+      downtime_hours: 16,
+      personnel_shortage: "Şoför",
+      data_quality_note: "Eski veri formatı düzeltilmiş ve doğrulanmış",
+      overall_status: "Sarı"
     }
   ],
-  agrega: [
-    {
-      ad: "Finike Agrega Tesisi",
-      uretim_ton: 15750,
-      sevk_ton: 14550,
-      stok: "Kırma kum: Dikkat",
-      kritik_ariza: "Yok",
-      genel_durum: "Yeşil"
-    },
-    {
-      ad: "Kaş Agrega Tesisi",
-      uretim_ton: 24000,
-      sevk_ton: 19800,
-      stok: "3 numara: Kritik",
-      kritik_ariza: "Bunker besleme bandı koptu",
-      genel_durum: "Sarı",
-      dataWarning: "Veri doğrulama gerekli: kaynak tabloda aşırı yüksek üretim/sevk değeri var."
-    }
-  ],
-  arac: {
-    toplam_aktif_arac: 256,
-    toplam_arizali_arac: 7,
-    bu_hafta_tamir_edilen: 10,
-    kapasite_durumu: "Yetersiz",
-    ana_risk: "Forklift sayısı yetersiz; arıza olursa operasyon zorlanır",
-    yonetim_onayi:
-      "Elmalı 07 AGH 136 için mevcut vinç üst yapısının BMC mikser kamyon üzerine alınması",
-    acik_ariza_listesi: [
+  fleetData: {
+    total_active_vehicles: 256,
+    total_faulty_vehicles: 7,
+    repaired_this_week: 10,
+    open_faults: [
       "07 ALK 016 - Şase çatlak",
       "07 TCS 30 - Şanzıman arızası",
       "07 AAT 886 - Vizelik bakım",
@@ -67,159 +94,417 @@ const dashboardData = {
       "07 TM 073 - Vizelik bakım",
       "07 TL 595 - Kaza yaptı",
       "07 AAD 814 - Şase çatlak"
-    ]
+    ],
+    waiting_spare_part: "07 TL 595 - Sigorta onayı bekleniyor",
+    planned_maintenances: [
+      "Vizelik araçlar",
+      "07 AAD 814 şase yapıldı, damper montaj yapılacak",
+      "07 ALK 016 bayramdan sonra şase yapılacak",
+      "07 TL 595 kaporta montaj / tamir bakım"
+    ],
+    capacity_status: "Yetersiz",
+    main_risk: "Forklift sayısı yetersiz; arıza olursa operasyon zorlanır",
+    management_approval: "Elmalı 07 AGH 136 için mevcut vinç üst yapısının BMC mikser kamyon üzerine alınması",
+    overall_status: "Normal"
   },
-  mekanik: {
-    tamamlanan_bakim_sayisi: 7,
-    kritik_tesis_arizalari: [
+  mechanicalData: {
+    completed_maintenance_count: 7,
+    ongoing_jobs: ["Yeşilköy beton santralinin helezon bakımı"],
+    critical_plant_failures: [
       "Kırıcı içine metal parça girmesi",
       "Elektrik motorlarının yanması",
       "Bantların ansızın kopması"
     ],
-    durus_durumu: "Uzun süreli duruş (2 saatten fazla)",
-    tesis_guvenligi: "Dikkat edilmesi gereken konu var",
-    yonetim_onayi_gerekenler: [
+    downtime_status: "Uzun süreli duruş (2 saatten fazla)",
+    plant_safety: "Dikkat edilmesi gereken konu var",
+    management_approval_required: [
       "Konkasör tesisine DST kurulması",
       "Dikmilli kırıcı önüne elek kurulması",
       "Hazır sıva tesisinin tamamlanması",
       "Paletli ekskavatörlerin yenilenmesi"
-    ]
+    ],
+    overall_status: "Dikkat"
   },
-  kritikKonular: [
-    "Kalkan’da rakip fiyatı yaklaşık 300 TL daha düşük.",
-    "Kaş’ta operatör / şoför eksikliği devam ediyor.",
-    "Kaş agrega tarafında 3 numara stok kritik seviyede.",
-    "Forklift kapasitesi yetersiz, operasyon riski oluşuyor.",
-    "Mekanik tarafta bant kopması / motor yanması riski sürüyor."
-  ]
+  vehicleConfig: {
+    finike: { mixer_count: 14, pump_count: 4, truck_count: 0 },
+    antalya: { mixer_count: 5, pump_count: 2, truck_count: 0 },
+    elmali: { mixer_count: 7, pump_count: 1, truck_count: 0 },
+    kas: { mixer_count: 6, pump_count: 2, truck_count: 6 },
+    yesilkoy: { mixer_count: 5, pump_count: 0, truck_count: 11 },
+    kalkan: { mixer_count: null, pump_count: 2, truck_count: 0 }
+  }
 };
 
-const formatNumber = (value, suffix = "") =>
-  `${new Intl.NumberFormat("tr-TR", { maximumFractionDigits: 1 }).format(value)}${suffix}`;
+const STORAGE_KEY = "albayrak_vehicle_config_v1";
+const state = {
+  tab: "all",
+  plantFilter: "all",
+  meetingMode: false,
+  config: loadConfig()
+};
 
-const formatMoney = (value) =>
-  new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(value);
+function loadConfig() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return structuredClone(data.vehicleConfig);
+    return { ...structuredClone(data.vehicleConfig), ...JSON.parse(raw) };
+  } catch {
+    return structuredClone(data.vehicleConfig);
+  }
+}
 
-const statusClass = (text) => {
-  if (!text) return "green";
+function saveConfig() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.config));
+}
+
+const formatNumber = (v, d = 2) => new Intl.NumberFormat("tr-TR", { maximumFractionDigits: d }).format(v);
+const formatInt = (v) => new Intl.NumberFormat("tr-TR", { maximumFractionDigits: 0 }).format(v);
+const formatMoney = (v) => new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(v);
+const safeDiv = (a, b) => (a && b ? a / b : null);
+
+function statusClass(text) {
+  if (!text) return "neutral";
   const t = text.toLowerCase();
   if (t.includes("kritik") || t.includes("kırmızı")) return "red";
   if (t.includes("sarı") || t.includes("dikkat") || t.includes("yetersiz")) return "yellow";
+  if (t.includes("normal")) return "neutral";
   return "green";
-};
+}
+
+function thresholdStatus(value, metric) {
+  if (value == null) return "neutral";
+  if (metric === "m3_trip") return value >= 8 ? "green" : value >= 6 ? "yellow" : "red";
+  if (metric === "trips_mixer") return value >= 25 ? "green" : value >= 18 ? "yellow" : "red";
+  if (metric === "m3_pump") return value >= 600 ? "green" : value >= 400 ? "yellow" : "red";
+  return "neutral";
+}
+
+function concreteWithMetrics() {
+  return data.concreteData.map((c) => {
+    const cfg = state.config[c.key] || {};
+    const m3_per_trip = safeDiv(c.production_m3, c.trip_count);
+    const trips_per_mixer = safeDiv(c.trip_count, cfg.mixer_count);
+    const m3_per_mixer = safeDiv(c.production_m3, cfg.mixer_count);
+    const m3_per_pump = safeDiv(c.production_m3, cfg.pump_count);
+    const daily_m3_per_pump = safeDiv(m3_per_pump, 6);
+    return { ...c, cfg, m3_per_trip, trips_per_mixer, m3_per_mixer, m3_per_pump, daily_m3_per_pump };
+  });
+}
+
+function aggregateWithMetrics() {
+  return data.aggregateData.map((a) => ({
+    ...a,
+    ton_per_truck_trip: safeDiv(a.production_ton, a.truck_trip_count),
+    dispatch_ratio: safeDiv(a.dispatch_ton, a.production_ton)
+  }));
+}
+
+function visibleConcrete() {
+  const list = concreteWithMetrics().filter((x) => !x.no_weekly_data);
+  return state.plantFilter === "all" ? list : list.filter((x) => x.key === state.plantFilter);
+}
+
+function renderFilters() {
+  const plantSelect = document.getElementById("plantFilter");
+  const options = [
+    { key: "all", label: "Tüm Tesisler" },
+    ...data.concreteData.map((c) => ({ key: c.key, label: c.plant }))
+  ];
+  plantSelect.innerHTML = options.map((o) => `<option value="${o.key}">${o.label}</option>`).join("");
+  plantSelect.value = state.plantFilter;
+  plantSelect.onchange = (e) => {
+    state.plantFilter = e.target.value;
+    renderAll();
+  };
+}
+
+function badge(text, css) {
+  return `<span class="status ${css}">${text}</span>`;
+}
+
+function fmtOrNA(v, suffix = "") {
+  return v == null ? badge("Veri yok", "neutral") : `${formatNumber(v)}${suffix}`;
+}
 
 function renderKpis() {
-  const toplamBeton = dashboardData.beton.reduce((sum, b) => sum + b.uretim_m3, 0);
-  const toplamTahsilat = dashboardData.beton.reduce((sum, b) => sum + b.tahsilat_tl, 0);
-  const toplamAgrega = dashboardData.agrega.reduce((sum, a) => sum + a.uretim_ton, 0);
-  const riskDurumu = "Dikkat";
+  const concrete = visibleConcrete();
+  const aggregate = aggregateWithMetrics();
+  const totalConcrete = concrete.reduce((s, x) => s + x.production_m3, 0);
+  const totalCollection = concrete.reduce((s, x) => s + (x.collection_tl || 0), 0);
+  const totalAggregate = aggregate.reduce((s, x) => s + x.production_ton, 0);
 
-  const items = [
-    { title: "Toplam Beton Üretimi", value: formatNumber(toplamBeton, " m³") },
-    { title: "Toplam Tahsilat", value: formatMoney(toplamTahsilat) },
-    { title: "Toplam Agrega Üretimi", value: formatNumber(toplamAgrega, " ton") },
-    { title: "Toplam Aktif Araç", value: dashboardData.arac.toplam_aktif_arac },
-    { title: "Arızalı Araç Sayısı", value: dashboardData.arac.toplam_arizali_arac },
-    { title: "Genel Risk Durumu", value: riskDurumu }
+  const kpis = [
+    ["Toplam Beton Üretimi", `${formatNumber(totalConcrete, 1)} m³`],
+    ["Toplam Tahsilat", formatMoney(totalCollection)],
+    ["Toplam Agrega Üretimi", `${formatNumber(totalAggregate, 2)} ton`],
+    ["Toplam Aktif Araç", formatInt(data.fleetData.total_active_vehicles)],
+    ["Arızalı Araç Sayısı", formatInt(data.fleetData.total_faulty_vehicles)],
+    ["Genel Risk Durumu", "Dikkat"]
   ];
 
-  document.getElementById("kpiGrid").innerHTML = items
-    .map(
-      (item) => `
-      <article class="card kpi-card">
-        <h3>${item.title}</h3>
-        <div class="value">${item.value}</div>
-      </article>
-    `
-    )
+  document.getElementById("kpiGrid").innerHTML = kpis
+    .map(([t, v]) => `<article class="card kpi-card"><h3>${t}</h3><div class="value">${v}</div></article>`)
+    .join("");
+
+  const validMixer = concrete.filter((x) => x.trips_per_mixer != null);
+  const validPump = concrete.filter((x) => x.daily_m3_per_pump != null);
+  const avgM3Trip = safeDiv(concrete.reduce((s, x) => s + x.production_m3, 0), concrete.reduce((s, x) => s + x.trip_count, 0));
+  const avgDailyPump = safeDiv(validPump.reduce((s, x) => s + x.daily_m3_per_pump, 0), validPump.length);
+  const avgTonTrip = safeDiv(aggregate.reduce((s, x) => s + x.production_ton, 0), aggregate.reduce((s, x) => s + x.truck_trip_count, 0));
+  const bestMixer = validMixer.sort((a, b) => b.trips_per_mixer - a.trips_per_mixer)[0];
+
+  const secondary = [
+    ["Ortalama m³ / Sefer", avgM3Trip ? formatNumber(avgM3Trip) : "Veri yok"],
+    ["Ortalama Günlük m³ / Pompa", avgDailyPump ? formatNumber(avgDailyPump) : "Veri yok"],
+    ["Ortalama Ton / Kamyon Seferi", avgTonTrip ? formatNumber(avgTonTrip) : "Veri yok"],
+    ["En Verimli Mikser Kullanımı", bestMixer ? `${bestMixer.plant.replace(" Beton Santrali", "")} (${formatNumber(bestMixer.trips_per_mixer)})` : "Veri yok"]
+  ];
+
+  document.getElementById("secondaryKpiGrid").innerHTML = secondary
+    .map(([t, v]) => `<article class="card kpi-card secondary"><h3>${t}</h3><div class="value">${v}</div></article>`)
     .join("");
 }
 
-function renderBeton() {
-  const max = Math.max(...dashboardData.beton.map((x) => x.uretim_m3));
-  document.getElementById("betonBars").innerHTML = dashboardData.beton
+function renderConcrete() {
+  const concrete = visibleConcrete();
+  const max = Math.max(...concrete.map((x) => x.production_m3), 1);
+  document.getElementById("betonBars").innerHTML = concrete
+    .map((c) => `<div class="bar-row"><strong>${c.plant.replace(" Beton Santrali", "")}</strong><div class="bar"><span style="width:${Math.round((c.production_m3 / max) * 100)}%"></span></div><span>${formatNumber(c.production_m3)} m³</span></div>`)
+    .join("");
+
+  const noData = data.concreteData.find((x) => x.no_weekly_data && (state.plantFilter === "all" || x.key === state.plantFilter));
+  const rows = concrete
     .map(
-      (b) => `
-      <div class="bar-row">
-        <strong>${b.ad.replace(" Beton Santrali", "")}</strong>
-        <div class="bar"><span style="width:${Math.round((b.uretim_m3 / max) * 100)}%"></span></div>
-        <span>${formatNumber(b.uretim_m3)}</span>
-      </div>
-    `
+      (c) => `<tr class="clickable" data-drawer="${c.key}">
+        <td>${c.plant}</td>
+        <td>${formatNumber(c.production_m3, 1)}</td>
+        <td>${formatInt(c.trip_count)}</td>
+        <td>${formatMoney(c.collection_tl || 0)}</td>
+        <td>${formatNumber(c.next_week_plan_m3 || 0, 1)} m³</td>
+        <td>${badge(c.overall_status, statusClass(c.overall_status))}</td>
+      </tr>`
     )
     .join("");
 
-  document.getElementById("betonTableBody").innerHTML = dashboardData.beton
-    .map(
-      (b) => `
-      <tr>
-        <td>${b.ad}</td>
-        <td>${formatNumber(b.uretim_m3)}</td>
-        <td>${formatMoney(b.tahsilat_tl)}</td>
-        <td>${formatNumber(b.plan_m3_next_week)}</td>
-        <td><span class="status ${statusClass(b.genel_durum)}">${b.genel_durum}</span></td>
-      </tr>
-    `
-    )
-    .join("");
+  document.getElementById("betonTableBody").innerHTML = rows + (noData ? `<tr><td>${noData.plant}</td><td colspan="5"><span class="warn-badge">Veri Yok</span> ${noData.note}</td></tr>` : "");
+
+  document.querySelectorAll("[data-drawer]").forEach((el) => {
+    el.onclick = () => openDrawer(el.dataset.drawer);
+  });
 }
 
-function renderAgrega() {
-  document.getElementById("agregaTableBody").innerHTML = dashboardData.agrega
-    .map((a) => {
-      const warning = a.dataWarning ? `<span class="warn-badge">Veri Doğrulama Gerekli</span>` : "";
-      return `
-      <tr>
-        <td>${a.ad}${warning}<div class="muted">${a.dataWarning ?? ""}</div></td>
-        <td>${formatNumber(a.uretim_ton)}</td>
-        <td>${formatNumber(a.sevk_ton)}</td>
-        <td>${a.stok}</td>
-        <td>${a.kritik_ariza}</td>
-        <td><span class="status ${statusClass(a.genel_durum)}">${a.genel_durum}</span></td>
+function renderLogisticsTable() {
+  const rows = concreteWithMetrics()
+    .filter((c) => !c.no_weekly_data && (state.plantFilter === "all" || c.key === state.plantFilter))
+    .map((c) => {
+      const mixWarn = c.cfg.mixer_count == null ? '<span class="warn-badge">Mikser verisi eksik</span>' : "";
+      return `<tr>
+        <td>${c.plant} ${mixWarn}</td>
+        <td>${formatNumber(c.production_m3, 1)}</td>
+        <td>${formatInt(c.trip_count)}</td>
+        <td>${c.cfg.mixer_count ?? "-"}</td>
+        <td>${c.cfg.pump_count ?? "-"}</td>
+        <td>${badge(fmtOrNA(c.m3_per_trip), thresholdStatus(c.m3_per_trip, "m3_trip"))}</td>
+        <td>${badge(fmtOrNA(c.trips_per_mixer), thresholdStatus(c.trips_per_mixer, "trips_mixer"))}</td>
+        <td>${fmtOrNA(c.m3_per_mixer)}</td>
+        <td>${badge(fmtOrNA(c.m3_per_pump), thresholdStatus(c.m3_per_pump, "m3_pump"))}</td>
+        <td>${fmtOrNA(c.daily_m3_per_pump)}</td>
       </tr>`;
     })
     .join("");
+
+  document.getElementById("logisticsTableBody").innerHTML = rows;
 }
 
-function renderVehicleAndMechanic() {
-  const vehicle = dashboardData.arac;
-  document.getElementById("vehicleMetrics").innerHTML = `
-    <li><strong>Toplam Aktif Araç:</strong> ${vehicle.toplam_aktif_arac}</li>
-    <li><strong>Toplam Arızalı Araç:</strong> ${vehicle.toplam_arizali_arac}</li>
-    <li><strong>Bu Hafta Tamir Edilen:</strong> ${vehicle.bu_hafta_tamir_edilen}</li>
-    <li><strong>Kapasite Durumu:</strong> <span class="status ${statusClass(vehicle.kapasite_durumu)}">${vehicle.kapasite_durumu}</span></li>
-    <li><strong>Ana Risk:</strong> ${vehicle.ana_risk}</li>
-    <li><strong>Yönetim Onayı:</strong> ${vehicle.yonetim_onayi}</li>
-  `;
+function renderSettings() {
+  const names = {
+    finike: "Finike",
+    antalya: "Antalya",
+    elmali: "Elmalı",
+    kas: "Kaş",
+    yesilkoy: "Yeşilköy",
+    kalkan: "Kalkan"
+  };
 
-  document.getElementById("openFaults").innerHTML = vehicle.acik_ariza_listesi.map((f) => `<li>${f}</li>`).join("");
-
-  const mechanic = dashboardData.mekanik;
-  document.getElementById("mechanicMetrics").innerHTML = `
-    <li><strong>Tamamlanan Bakım:</strong> ${mechanic.tamamlanan_bakim_sayisi}</li>
-    <li><strong>Kritik Tesis Arızaları:</strong> ${mechanic.kritik_tesis_arizalari.join("; ")}</li>
-    <li><strong>Duruş Durumu:</strong> <span class="status ${statusClass(mechanic.durus_durumu)}">${mechanic.durus_durumu}</span></li>
-    <li><strong>Tesis Güvenliği:</strong> <span class="status ${statusClass(mechanic.tesis_guvenligi)}">${mechanic.tesis_guvenligi}</span></li>
-  `;
-
-  document.getElementById("mechanicApprovals").innerHTML = mechanic.yonetim_onayi_gerekenler
-    .map((item) => `<li>${item}</li>`)
+  document.getElementById("settingsGrid").innerHTML = Object.entries(state.config)
+    .map(([key, cfg]) => `<div class="setting-card">
+        <h4>${names[key] || key}</h4>
+        ${key === "kalkan" ? '<p class="muted">Mikser verisi eksik / doğrulama gerekli</p>' : ""}
+        <label class="setting-row">Mikser <input type="number" data-key="${key}" data-field="mixer_count" value="${cfg.mixer_count ?? ""}" /></label>
+        <label class="setting-row">Pompa <input type="number" data-key="${key}" data-field="pump_count" value="${cfg.pump_count ?? ""}" /></label>
+        <label class="setting-row">Kamyon <input type="number" data-key="${key}" data-field="truck_count" value="${cfg.truck_count ?? ""}" /></label>
+      </div>`)
     .join("");
+
+  document.querySelectorAll("#settingsGrid input").forEach((input) => {
+    input.oninput = (e) => {
+      const key = e.target.dataset.key;
+      const field = e.target.dataset.field;
+      const raw = e.target.value;
+      state.config[key][field] = raw === "" ? null : Number(raw);
+      saveConfig();
+      renderKpis();
+      renderLogisticsTable();
+      renderInsights();
+    };
+  });
+}
+
+function renderAggregate() {
+  const rows = aggregateWithMetrics()
+    .filter((a) => state.plantFilter === "all" || a.key === state.plantFilter)
+    .map(
+      (a) => `<tr>
+      <td>${a.plant}${a.data_quality_note ? `<span class="warn-badge">Doğrulandı</span><div class="muted">${a.data_quality_note}</div>` : ""}</td>
+      <td>${formatNumber(a.production_ton)}</td>
+      <td>${formatNumber(a.dispatch_ton)}</td>
+      <td>${formatInt(a.truck_trip_count)}</td>
+      <td>${formatNumber(a.ton_per_truck_trip)}</td>
+      <td>${formatNumber(a.dispatch_ratio)}</td>
+      <td>Kırma Kum: ${a.kirma_kum_stock}, 3 No: ${a.stock_3}</td>
+      <td>${a.critical_failure}</td>
+      <td>${badge(a.overall_status, statusClass(a.overall_status))}</td>
+    </tr>`
+    )
+    .join("");
+  document.getElementById("agregaTableBody").innerHTML = rows;
+}
+
+function renderFleetMechanical() {
+  const f = data.fleetData;
+  document.getElementById("vehicleMetrics").innerHTML = `
+    <li><strong>Toplam Aktif Araç:</strong> ${f.total_active_vehicles}</li>
+    <li><strong>Toplam Arızalı Araç:</strong> ${f.total_faulty_vehicles}</li>
+    <li><strong>Bu Hafta Tamir Edilen:</strong> ${f.repaired_this_week}</li>
+    <li><strong>Kapasite Durumu:</strong> ${badge(f.capacity_status, statusClass(f.capacity_status))}</li>
+    <li><strong>Ana Risk:</strong> ${f.main_risk}</li>
+    <li><strong>Yönetim Onayı:</strong> ${f.management_approval}</li>`;
+  document.getElementById("openFaults").innerHTML = f.open_faults.map((x) => `<li>${x}</li>`).join("");
+  document.getElementById("plannedVehicleMaint").innerHTML = f.planned_maintenances.map((x) => `<li>${x}</li>`).join("");
+  document.getElementById("waitingSpare").textContent = f.waiting_spare_part;
+
+  const m = data.mechanicalData;
+  document.getElementById("mechanicMetrics").innerHTML = `
+    <li><strong>Tamamlanan Bakım:</strong> ${m.completed_maintenance_count}</li>
+    <li><strong>Devam Eden İşler:</strong> ${m.ongoing_jobs.join(", ")}</li>
+    <li><strong>Duruş Durumu:</strong> ${badge(m.downtime_status, statusClass(m.downtime_status))}</li>
+    <li><strong>Tesis Güvenliği:</strong> ${badge(m.plant_safety, statusClass(m.plant_safety))}</li>`;
+  document.getElementById("mechanicCritical").innerHTML = m.critical_plant_failures.map((x) => `<li>${x}</li>`).join("");
+  document.getElementById("mechanicApprovals").innerHTML = m.management_approval_required.map((x) => `<li>${x}</li>`).join("");
 }
 
 function renderCriticalIssues() {
-  document.getElementById("criticalIssues").innerHTML = dashboardData.kritikKonular
-    .map((item) => `<li>${item}</li>`)
+  const list = [
+    { text: "Finike kırma kum stoğu dikkat", target: "section-aggregate" },
+    { text: "Kaş 3 numara stok kritik", target: "section-aggregate" },
+    { text: "Kaş bunker besleme bandı koptu, 16 saat duruş devam ediyor", target: "section-aggregate" },
+    { text: "Kalkan ve Kaş tarafında fiyat rekabeti baskısı var", target: "section-concrete" },
+    { text: "Forklift kapasitesi yetersiz", target: "section-fleet" }
+  ];
+
+  document.getElementById("criticalIssues").innerHTML = list
+    .map((i) => `<li data-target="${i.target}">${i.text}</li>`)
     .join("");
+
+  document.querySelectorAll("#criticalIssues li").forEach((li) => {
+    li.onclick = () => jumpToSection(li.dataset.target);
+  });
 }
 
-function init() {
-  document.getElementById("reportDate").textContent = dashboardData.reportDate;
+function renderInsights() {
+  const concrete = concreteWithMetrics().filter((x) => !x.no_weekly_data);
+  const aggregate = aggregateWithMetrics();
+  const validMixer = concrete.filter((x) => x.trips_per_mixer != null);
+  const validPump = concrete.filter((x) => x.daily_m3_per_pump != null);
+
+  const topMixer = validMixer.sort((a, b) => b.trips_per_mixer - a.trips_per_mixer)[0];
+  const lowPump = validPump.sort((a, b) => a.daily_m3_per_pump - b.daily_m3_per_pump)[0];
+  const lowMixer = validMixer.sort((a, b) => a.trips_per_mixer - b.trips_per_mixer)[0];
+  const bestAgg = aggregate.sort((a, b) => b.ton_per_truck_trip - a.ton_per_truck_trip)[0];
+  const lowDispatch = aggregate.sort((a, b) => a.dispatch_ratio - b.dispatch_ratio)[0];
+
+  const insights = [
+    `Mikser kullanımında en verimli tesis: ${topMixer ? topMixer.plant : "Veri yok"}.`,
+    `Pompa kapasitesi en düşük kullanılan tesis: ${lowPump ? lowPump.plant : "Veri yok"}.`,
+    `Filo kullanımında zayıf tesis: ${lowMixer ? lowMixer.plant : "Veri yok"}.`,
+    `Kalkan lojistikte güçlü görünüyor ancak mikser sayısı doğrulanmalı.`,
+    `Kamyon lojistiği daha verimli tesis: ${bestAgg ? bestAgg.plant : "Veri yok"}.`,
+    `Sevk/üretim oranı düşük tesis: ${lowDispatch ? lowDispatch.plant : "Veri yok"}; stok baskısı incelenmeli.`,
+    "Kaş agrega tarafında kritik stok ve insan kaynağı riski var.",
+    "Finike agrega tarafında kırma kum stoğu dikkat seviyesinde.",
+    "Antalya düşük aktivite gösteriyor.",
+    "Kalkan ve Kaş tarafında fiyat rekabeti baskısı var."
+  ];
+
+  document.getElementById("insightList").innerHTML = insights.map((i) => `<li>${i}</li>`).join("");
+}
+
+function openDrawer(key) {
+  const plant = concreteWithMetrics().find((x) => x.key === key);
+  if (!plant) return;
+  document.getElementById("drawerTitle").textContent = plant.plant;
+  document.getElementById("drawerBody").innerHTML = `
+    <div class="drawer-grid">
+      <div><strong>Üretim:</strong> ${formatNumber(plant.production_m3)} m³</div>
+      <div><strong>Sefer:</strong> ${formatInt(plant.trip_count)}</div>
+      <div><strong>Tahsilat:</strong> ${formatMoney(plant.collection_tl || 0)}</div>
+      <div><strong>Gelecek Hafta Plan:</strong> ${formatNumber(plant.next_week_plan_m3 || 0)} m³</div>
+      <div><strong>m³ / sefer:</strong> ${fmtOrNA(plant.m3_per_trip)}</div>
+      <div><strong>Sefer / mikser:</strong> ${fmtOrNA(plant.trips_per_mixer)}</div>
+      <div><strong>m³ / mikser:</strong> ${fmtOrNA(plant.m3_per_mixer)}</div>
+      <div><strong>m³ / pompa:</strong> ${fmtOrNA(plant.m3_per_pump)}</div>
+      <div><strong>Günlük m³ / pompa:</strong> ${fmtOrNA(plant.daily_m3_per_pump)}</div>
+      <div><strong>Öne Çıkan Müşteri:</strong> ${plant.featured_customer || "Yok"}</div>
+      <div><strong>Ana Risk:</strong> ${plant.lost_job_note || plant.critical_failure || "Yok"}</div>
+      <div><strong>Genel Durum:</strong> ${badge(plant.overall_status, statusClass(plant.overall_status))}</div>
+    </div>`;
+  document.getElementById("plantDrawer").classList.add("open");
+}
+
+function jumpToSection(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  document.querySelectorAll(".highlight").forEach((x) => x.classList.remove("highlight"));
+  el.classList.add("highlight");
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function applyTab() {
+  const group = state.tab;
+  document.querySelectorAll("[data-group]").forEach((el) => {
+    if (group === "all") el.classList.remove("hidden-by-tab");
+    else el.classList.toggle("hidden-by-tab", el.dataset.group !== group);
+  });
+  document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.tab === group));
+}
+
+function renderAll() {
+  document.getElementById("reportDate").textContent = data.reportDate;
+  renderFilters();
   renderKpis();
-  renderBeton();
-  renderAgrega();
-  renderVehicleAndMechanic();
+  renderConcrete();
+  renderLogisticsTable();
+  renderSettings();
+  renderAggregate();
+  renderFleetMechanical();
   renderCriticalIssues();
+  renderInsights();
+  applyTab();
 }
 
-init();
+document.getElementById("closeDrawer").onclick = () => document.getElementById("plantDrawer").classList.remove("open");
+document.getElementById("plantDrawer").onclick = (e) => {
+  if (e.target.id === "plantDrawer") document.getElementById("plantDrawer").classList.remove("open");
+};
+document.getElementById("meetingModeBtn").onclick = () => {
+  state.meetingMode = !state.meetingMode;
+  document.body.classList.toggle("meeting-mode", state.meetingMode);
+};
+document.querySelectorAll(".tab").forEach((btn) => {
+  btn.onclick = () => {
+    state.tab = btn.dataset.tab;
+    applyTab();
+  };
+});
+
+renderAll();

@@ -20,19 +20,37 @@
           <h1>CEO Haftalık Operasyon Dashboard</h1>
           <p class="subtitle">Toplantı Özeti • Haftalık Operasyon Performansı</p>
         </div>
-        <div class="week-box">
-          <p id="reportDateLabel">Rapor Tarihi</p>
-          <strong id="reportDate"></strong>
+        <div class="header-actions">
+          <div class="week-box">
+            <p>Rapor Tarihi</p>
+            <strong id="reportDate"></strong>
+          </div>
+          <button id="meetingModeBtn" class="btn">Toplantı Modu</button>
         </div>
       </header>
 
       <section class="kpi-grid" id="kpiGrid"></section>
+      <section class="kpi-grid secondary" id="secondaryKpiGrid"></section>
+
+      <section class="card controls">
+        <div>
+          <label for="plantFilter">Tesis Filtresi</label>
+          <select id="plantFilter"></select>
+        </div>
+        <div class="tabs" id="tabButtons">
+          <button class="tab active" data-tab="all">Tümü</button>
+          <button class="tab" data-tab="concrete">Beton</button>
+          <button class="tab" data-tab="aggregate">Agrega</button>
+          <button class="tab" data-tab="fleet">Araç</button>
+          <button class="tab" data-tab="mechanical">Mekanik</button>
+        </div>
+      </section>
 
       <div class="layout-grid">
         <section class="main-column">
-          <article class="card section-card">
+          <article class="card section-card" id="section-concrete" data-group="concrete">
             <div class="section-head">
-              <h2>Beton Santralleri</h2>
+              <h2>Beton Operasyonu</h2>
               <span class="muted">Haftalık üretim / tahsilat / plan</span>
             </div>
             <div id="betonBars" class="bar-list"></div>
@@ -42,8 +60,9 @@
                   <tr>
                     <th>Tesis</th>
                     <th>Üretim (m³)</th>
+                    <th>Sefer</th>
                     <th>Tahsilat</th>
-                    <th>Gelecek Hafta Plan (m³)</th>
+                    <th>Gelecek Hafta Plan</th>
                     <th>Durum</th>
                   </tr>
                 </thead>
@@ -52,10 +71,44 @@
             </div>
           </article>
 
-          <article class="card section-card">
+          <article class="card section-card" id="section-logistics" data-group="concrete">
             <div class="section-head">
-              <h2>Agrega Tesisleri</h2>
-              <span class="muted">Üretim / sevk / stok / teknik risk</span>
+              <h2>Beton Lojistik Verimliliği</h2>
+              <span class="muted">Mikser ve pompa kapasite KPI'ları</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tesis</th>
+                    <th>Toplam m³</th>
+                    <th>Sefer</th>
+                    <th>Mikser</th>
+                    <th>Pompa</th>
+                    <th>m³ / Sefer</th>
+                    <th>Sefer / Mikser</th>
+                    <th>m³ / Mikser</th>
+                    <th>m³ / Pompa</th>
+                    <th>Günlük m³ / Pompa</th>
+                  </tr>
+                </thead>
+                <tbody id="logisticsTableBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card section-card" id="section-settings" data-group="concrete">
+            <div class="section-head">
+              <h2>Tesis Konfigürasyonu (Ayarlar)</h2>
+              <span class="muted">Mikser / pompa / kamyon sayılarını güncelle</span>
+            </div>
+            <div id="settingsGrid" class="settings-grid"></div>
+          </article>
+
+          <article class="card section-card" id="section-aggregate" data-group="aggregate">
+            <div class="section-head">
+              <h2>Agrega Operasyonu</h2>
+              <span class="muted">Üretim, sevk, stok ve lojistik KPI</span>
             </div>
             <div class="table-wrap">
               <table>
@@ -64,6 +117,9 @@
                     <th>Tesis</th>
                     <th>Üretim (ton)</th>
                     <th>Sevk (ton)</th>
+                    <th>Kamyon Seferi</th>
+                    <th>Ton / Kamyon Seferi</th>
+                    <th>Sevk / Üretim</th>
                     <th>Stok</th>
                     <th>Teknik Risk</th>
                     <th>Durum</th>
@@ -74,20 +130,29 @@
             </div>
           </article>
 
-          <article class="card section-card split-2">
+          <article class="card section-card split-2" id="section-fleet" data-group="fleet">
             <div>
-              <div class="section-head">
-                <h2>Araç ve İş Makinesi</h2>
-              </div>
+              <div class="section-head"><h2>Araç ve İş Makinesi</h2></div>
               <ul class="metric-list" id="vehicleMetrics"></ul>
               <h3>Açık Arızalar</h3>
               <ul id="openFaults" class="bullet-list"></ul>
             </div>
             <div>
-              <div class="section-head">
-                <h2>Mekanik Durum</h2>
-              </div>
+              <h3>Planlı Bakımlar</h3>
+              <ul id="plannedVehicleMaint" class="bullet-list"></ul>
+              <h3>Yedek Parça</h3>
+              <p id="waitingSpare" class="muted"></p>
+            </div>
+          </article>
+
+          <article class="card section-card split-2" id="section-mechanical" data-group="mechanical">
+            <div>
+              <div class="section-head"><h2>Mekanik Durum</h2></div>
               <ul class="metric-list" id="mechanicMetrics"></ul>
+              <h3>Kritik Tesis Arızaları</h3>
+              <ul id="mechanicCritical" class="bullet-list"></ul>
+            </div>
+            <div>
               <h3>Yönetim Onayı Gerekenler</h3>
               <ul id="mechanicApprovals" class="bullet-list"></ul>
             </div>
@@ -95,15 +160,26 @@
         </section>
 
         <aside class="side-column">
-          <article class="card alarm-card">
-            <div class="section-head">
-              <h2>Haftanın Kritik Konuları</h2>
-            </div>
+          <article class="card alarm-card" id="section-risks">
+            <div class="section-head"><h2>Haftanın Kritik Konuları</h2></div>
             <ul id="criticalIssues" class="alert-list"></ul>
+          </article>
+
+          <article class="card insight-card" id="section-insights">
+            <div class="section-head"><h2>Lojistik İçgörüleri</h2></div>
+            <ul id="insightList" class="bullet-list"></ul>
           </article>
         </aside>
       </div>
     </main>
+
+    <aside class="drawer" id="plantDrawer" aria-hidden="true">
+      <div class="drawer-content card">
+        <button id="closeDrawer" class="close-btn">Kapat ✕</button>
+        <h2 id="drawerTitle"></h2>
+        <div id="drawerBody" class="drawer-body"></div>
+      </div>
+    </aside>
 
     <script src="script.js"></script>
   </body>
