@@ -44,6 +44,7 @@
           <button class="tab" data-tab="aggregate">Agrega</button>
           <button class="tab" data-tab="fleet">Araç</button>
           <button class="tab" data-tab="mechanical">Mekanik</button>
+          <button class="tab" data-tab="finance">Finans</button>
         </div>
       </section>
 
@@ -118,7 +119,7 @@
           <article class="card section-card" id="section-aggregate" data-group="aggregate">
             <div class="section-head">
               <h2>Agrega Operasyonu</h2>
-              <span class="muted">Üretim, sevk, stok ve lojistik KPI</span>
+              <span class="muted">Üretim, sevk, stok, yakıt ve lojistik KPI</span>
             </div>
             <div class="table-wrap">
               <table>
@@ -130,7 +131,9 @@
                     <th>Kamyon Seferi</th>
                     <th>Ton / Kamyon Seferi</th>
                     <th>Sevk / Üretim</th>
-                    <th>Stok</th>
+                    <th>Araç Başına Yakıt</th>
+                    <th>Ton Başına Yakıt</th>
+                    <th>Stok Durumu</th>
                     <th>Teknik Risk</th>
                     <th>Durum</th>
                   </tr>
@@ -173,6 +176,18 @@
               </div>
             </div>
           </article>
+
+          <article class="card section-card" id="section-finance" data-group="finance">
+            <div class="section-head"><h2>Finans Özeti</h2><span class="muted">Eksik verilerde kırılmaz, uyarı etiketi gösterir</span></div>
+            <div class="mini-kpis" id="financeKpis"></div>
+            <div class="finance-grid">
+              <details open><summary>En Büyük Tahsilatlar</summary><ul id="financeCollections" class="bullet-list"></ul></details>
+              <details><summary>En Büyük Ödemeler</summary><ul id="financePayments" class="bullet-list"></ul></details>
+              <details><summary>Gelecek Hafta Büyük Ödemeler</summary><ul id="financeNextPayments" class="bullet-list"></ul></details>
+              <details><summary>Nakit Akışı Değerlendirmesi</summary><p id="financeCashflow" class="muted"></p></details>
+              <details><summary>Yönetim Desteği Gereken Konu</summary><p id="financeManagement" class="muted"></p></details>
+            </div>
+          </article>
         </section>
 
         <aside class="side-column">
@@ -182,7 +197,7 @@
           </article>
 
           <article class="card insight-card" id="section-insights">
-            <div class="section-head"><h2>Lojistik İçgörüleri</h2></div>
+            <div class="section-head"><h2>Haftanın Yönetim İçgörüleri</h2></div>
             <ul id="insightList" class="bullet-list"></ul>
           </article>
         </aside>

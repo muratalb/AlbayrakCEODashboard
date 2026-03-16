@@ -118,6 +118,11 @@ th { font-size: 12px; color: var(--muted); }
   .header-actions { width: 100%; flex-wrap: wrap; }
   .kpi-grid { grid-template-columns: repeat(3, 1fr); }
   .kpi-grid.secondary { grid-template-columns: repeat(2, 1fr); }
-  .layout-grid, .chart-grid, .chart-grid.two, .split-2, .settings-grid, .concrete-cards { grid-template-columns: 1fr; }
+  .layout-grid, .chart-grid, .chart-grid.two, .split-2, .settings-grid, .concrete-cards, .finance-grid { grid-template-columns: 1fr; }
   .mini-kpis { grid-template-columns: repeat(2, 1fr); }
 }
+
+.finance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.finance-grid details { border: 1px solid var(--line); border-radius: 10px; padding: 8px; background: #fbfcfe; }
+.finance-grid summary { cursor: pointer; font-weight: 600; color: var(--blue); }
+.tag-muted { color: var(--muted); font-weight: 600; }
