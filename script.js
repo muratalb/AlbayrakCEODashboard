@@ -56,7 +56,30 @@ const baseData = {
       collection_tl: 40000,
       overall_status: "Yeşil"
     },
-    { key: "elmali", plant: "Elmalı Beton", no_weekly_data: true, note: "Bu hafta üretim raporu yok" }
+    {
+      key: "elmali",
+      plant: "Elmalı Beton Santrali",
+      production_m3: 357,
+      trip_count: 26,
+      next_week_plan_m3: 400,
+      featured_customer: "Öne çıkan müşteri yok",
+      next_week_jobs: "Planlanmış iş yok",
+      collection_tl: 0,
+      next_week_collection_plan_tl: 0,
+      lost_job_note: "Pompalı siparişler geri döndü çünkü pompa vize için Finike'ye gitti ve operatör Ali Kara ameliyat olduğu için yok",
+      market_note: "Rakipler fiyat verirken nakliye ve pompa ücretini yazmıyor",
+      plant_note: "Santral aktif çalıştı, arıza yok",
+      logistics_note: "Pompa ve operatör eksik",
+      critical_failure: "Pompa döküm sırasında elektrik kesildi",
+      downtime_hours: 3,
+      failure_status: "Çözüldü",
+      cement_stock: "Normal",
+      aggregate_stock: "Normal",
+      personnel_shortage: "Pompa operatörü",
+      safety_note: "Yok",
+      main_problem: "Pompa ve operatör eksikliği",
+      overall_status: "Sarı"
+    }
   ],
   aggregateData: [
     {
@@ -437,7 +460,8 @@ function renderCriticalIssues() {
     { text: "Kaş 3 numara stok kritik", target: "section-aggregate" },
     { text: "Kaş bunker besleme bandı koptu, 16 saat duruş devam ediyor", target: "section-aggregate" },
     { text: "Kalkan/Yeşilköy aynı lokasyon: mikser verisi doğrulanmalı", target: "section-settings" },
-    { text: "Forklift kapasitesi yetersiz", target: "section-fleet" }
+    { text: "Forklift kapasitesi yetersiz", target: "section-fleet" },
+    { text: "Elmalı: pompa ve operatör eksikliği satış kaybına yol açıyor.", target: "section-concrete" }
   ];
   document.getElementById("criticalIssues").innerHTML = list.map((i) => `<li data-target="${i.target}">${i.text}</li>`).join("");
   document.querySelectorAll("#criticalIssues li").forEach((li) => (li.onclick = () => jumpToSection(li.dataset.target)));
@@ -462,7 +486,8 @@ function renderInsights() {
     "Kaş agrega tarafında kritik stok ve insan kaynağı riski var.",
     "Finike agrega tarafında kırma kum stoğu dikkat seviyesinde.",
     "Antalya düşük aktivite gösteriyor.",
-    "Kalkan ve Kaş tarafında fiyat rekabeti baskısı var."
+    "Kalkan ve Kaş tarafında fiyat rekabeti baskısı var.",
+    "Elmalı Beton: Pompa ve operatör eksikliği nedeniyle pompalı siparişler geri dönüyor. Talep olmasına rağmen üretim kapasitesi kullanılamıyor.",
   ];
   document.getElementById("insightList").innerHTML = insights.map((i) => `<li>${i}</li>`).join("");
 }
