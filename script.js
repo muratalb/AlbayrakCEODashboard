@@ -18,6 +18,29 @@ const baseData = {
       overall_status: "Yeşil"
     },
     {
+      key: "finike_likya",
+      plant: "Finike Likya Hazır Beton Tesisi",
+      production_m3: 1060.5,
+      trip_count: 120,
+      next_week_plan_m3: 650,
+      featured_customer: "BİZ Yapı İnşaat – 240 m³",
+      next_week_jobs: "Yok",
+      collection_tl: 3060450,
+      next_week_collection_plan_tl: 1250000,
+      lost_job_note: "Kaçan iş olmadı",
+      market_note: "Rakip fiyat baskısı yaşanmadı",
+      plant_note: "Santral düzenli çalıştı",
+      logistics_note: "Lojistik sorunu yaşanmadı",
+      critical_failure: "Yok",
+      downtime_hours: 0,
+      cement_stock: "Normal",
+      aggregate_stock: "Normal",
+      personnel_shortage: "Yok",
+      safety_note: "Yok",
+      main_problem: "Yok",
+      overall_status: "Yeşil"
+    },
+    {
       key: "kas",
       plant: "Kaş Beton Santrali",
       production_m3: 1024,
@@ -164,6 +187,7 @@ const baseData = {
   },
   vehicleConfig: {
     finike: { mixer_count: 14, pump_count: 4, truck_count: 0 },
+    finike_likya: { mixer_count: 5, pump_count: 1, truck_count: 0 },
     antalya: { mixer_count: 5, pump_count: 2, truck_count: 0 },
     elmali: { mixer_count: 7, pump_count: 1, truck_count: 0 },
     kas: { mixer_count: 6, pump_count: 2, truck_count: 6 },
@@ -354,6 +378,25 @@ function renderConcrete() {
   document.querySelectorAll("[data-drawer]").forEach((el) => (el.onclick = () => openDrawer(el.dataset.drawer)));
 }
 
+
+function renderConcreteCards() {
+  const concrete = visibleConcrete();
+  document.getElementById("concreteCards").innerHTML = concrete
+    .map((c) => `<article class="concrete-card">
+      <h4>${c.plant.replace(" Santrali", "")}</h4>
+      <ul>
+        <li><strong>Üretim:</strong> ${formatNumber(c.production_m3, 1)} m³</li>
+        <li><strong>Sefer:</strong> ${formatInt(c.trip_count)}</li>
+        <li><strong>m³ / Sefer:</strong> ${fmtOrNA(c.m3_per_trip)}</li>
+        <li><strong>Sefer / Mikser:</strong> ${fmtOrNA(c.trips_per_mixer)}</li>
+        <li><strong>m³ / Mikser:</strong> ${fmtOrNA(c.m3_per_mixer)}</li>
+        <li><strong>Tahsilat:</strong> ${formatMoney(c.collection_tl || 0)}</li>
+        <li><strong>Durum:</strong> ${badge(c.overall_status, statusClass(c.overall_status))}</li>
+      </ul>
+    </article>`)
+    .join("");
+}
+
 function renderLogisticsTable() {
   document.getElementById("logisticsTableBody").innerHTML = concreteWithMetrics()
     .filter((c) => !c.no_weekly_data && (state.plantFilter === "all" || c.key === state.plantFilter))
@@ -372,7 +415,7 @@ function renderLogisticsTable() {
 }
 
 function renderSettings() {
-  const names = { finike: "Finike", antalya: "Antalya", elmali: "Elmalı", kas: "Kaş", kalkan: "Kalkan (Yeşilköy ile aynı)" };
+  const names = { finike: "Finike", finike_likya: "Finike Likya", antalya: "Antalya", elmali: "Elmalı", kas: "Kaş", kalkan: "Kalkan (Yeşilköy ile aynı)" };
   document.getElementById("settingsGrid").innerHTML = Object.entries(state.config)
     .map(([key, cfg]) => `<div class="setting-card"><h4>${names[key] || key}</h4>
       ${key === "kalkan" ? '<p class="muted">Yeşilköy ve Kalkan aynı lokasyon olarak işlendi.</p>' : ""}
@@ -476,6 +519,10 @@ function renderInsights() {
   const lowPump = validPump.slice().sort((a, b) => a.daily_m3_per_pump - b.daily_m3_per_pump)[0];
   const bestAgg = aggregate.slice().sort((a, b) => b.ton_per_truck_trip - a.ton_per_truck_trip)[0];
   const lowDispatch = aggregate.slice().sort((a, b) => a.dispatch_ratio - b.dispatch_ratio)[0];
+  const finikeRegionTotal = concrete
+    .filter((c) => c.key === "finike" || c.key === "finike_likya")
+    .reduce((sum, c) => sum + (c.production_m3 || 0), 0);
+  const finikeRegionTotalRounded = Math.round(finikeRegionTotal / 10) * 10;
 
   const insights = [
     `Mikser kullanımında en verimli tesis: ${topMixer ? topMixer.plant : "Veri yok"}.`,
@@ -487,6 +534,8 @@ function renderInsights() {
     "Finike agrega tarafında kırma kum stoğu dikkat seviyesinde.",
     "Antalya düşük aktivite gösteriyor.",
     "Kalkan ve Kaş tarafında fiyat rekabeti baskısı var.",
+    "Finike Likya Beton: operasyon stabil görünüyor, mikser kullanım verimli ve tahsilat güçlü.",
+    `Finike bölgesinde iki beton tesisinin toplam haftalık üretimi ${formatNumber(finikeRegionTotalRounded, 0)} m³ seviyesine ulaştı.`,
     "Elmalı Beton: Pompa ve operatör eksikliği nedeniyle pompalı siparişler geri dönüyor. Talep olmasına rağmen üretim kapasitesi kullanılamıyor.",
   ];
   document.getElementById("insightList").innerHTML = insights.map((i) => `<li>${i}</li>`).join("");
@@ -537,6 +586,7 @@ function renderAll() {
   renderKpis();
   renderProductionCharts();
   renderConcrete();
+  renderConcreteCards();
   renderLogisticsTable();
   renderSettings();
   renderAggregate();
