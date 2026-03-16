@@ -68,3 +68,9 @@ Not:
 
 - `ton_per_truck_trip = production_ton / truck_trip_count`
 - `dispatch_ratio = dispatch_ton / production_ton`
+
+
+## Grafik Ölçek Notu
+
+- Beton ve agrega grafiklerinde bar maksimumu artık en yüksek tesis değil, **grubun toplam üretim değeri** olarak alınır.
+- Böylece her tesis barı toplam içerisindeki payına göre görünür.

@@ -83,6 +83,17 @@ const baseData = {
       personnel_shortage: "Şoför",
       data_quality_note: "Eski veri formatı düzeltilmiş ve doğrulanmış",
       overall_status: "Sarı"
+    },
+    {
+      key: "elmali",
+      plant: "Elmalı Agrega Tesisi",
+      production_ton: 0,
+      dispatch_ton: 0,
+      truck_trip_count: 0,
+      kirma_kum_stock: "Veri bekleniyor",
+      stock_3: "Veri bekleniyor",
+      critical_failure: "Veri bekleniyor",
+      overall_status: "Normal"
     }
   ],
   fleetData: {
@@ -156,7 +167,9 @@ function mergeManualData() {
 
   data.concreteData = data.concreteData.map((c) => {
     const o = manual.concrete?.[c.key];
-    return o ? { ...c, ...o } : c;
+    if (!o) return c;
+    if (c.no_weekly_data) return { ...c, ...o, no_weekly_data: false, note: "" };
+    return { ...c, ...o };
   });
   data.aggregateData = data.aggregateData.map((a) => {
     const o = manual.aggregate?.[a.key];
@@ -273,8 +286,8 @@ function renderKpis() {
 function renderProductionCharts() {
   const concrete = visibleConcrete();
   const aggregate = aggregateWithMetrics();
-  const maxConcrete = Math.max(...concrete.map((x) => x.production_m3), 1);
-  const maxAggregate = Math.max(...aggregate.map((x) => x.production_ton), 1);
+  const totalConcreteCapacity = Math.max(concrete.reduce((s, x) => s + (x.production_m3 || 0), 0), 1);
+  const totalAggregateCapacity = Math.max(aggregate.reduce((s, x) => s + (x.production_ton || 0), 0), 1);
 
   const block = (title, rows, max, unit) => `<div class="chart-card"><h3>${title}</h3>${rows
     .map(
@@ -286,13 +299,13 @@ function renderProductionCharts() {
     block(
       "Beton Üretimi",
       concrete.map((c) => ({ name: c.plant.replace(" Beton Santrali", ""), value: c.production_m3 })),
-      maxConcrete,
+      totalConcreteCapacity,
       "m³"
     ) +
     block(
       "Agrega Üretimi",
       aggregate.map((a) => ({ name: a.plant.replace(" Agrega Tesisi", ""), value: a.production_ton })),
-      maxAggregate,
+      totalAggregateCapacity,
       "ton"
     );
 }
@@ -300,9 +313,9 @@ function renderProductionCharts() {
 function renderConcrete() {
   const d = getData();
   const concrete = visibleConcrete();
-  const max = Math.max(...concrete.map((x) => x.production_m3), 1);
+  const totalConcreteCapacity = Math.max(concrete.reduce((s, x) => s + (x.production_m3 || 0), 0), 1);
   document.getElementById("betonBars").innerHTML = concrete
-    .map((c) => `<div class="bar-row"><strong>${c.plant.replace(" Beton Santrali", "")}</strong><div class="bar"><span style="width:${Math.round((c.production_m3 / max) * 100)}%"></span></div><span>${formatNumber(c.production_m3)} m³</span></div>`)
+    .map((c) => `<div class="bar-row"><strong>${c.plant.replace(" Beton Santrali", "")}</strong><div class="bar"><span style="width:${Math.round((c.production_m3 / totalConcreteCapacity) * 100)}%"></span></div><span>${formatNumber(c.production_m3)} m³</span></div>`)
     .join("");
 
   const noData = d.concreteData.find((x) => x.no_weekly_data && (state.plantFilter === "all" || x.key === state.plantFilter));

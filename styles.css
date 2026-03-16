@@ -18,7 +18,7 @@ body { margin: 0; font-family: "Inter", -apple-system, BlinkMacSystemFont, "Sego
 
 .topbar { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 12px; }
 .brand { display: flex; align-items: center; gap: 14px; }
-.brand-logo { width: 170px; max-width: 30vw; height: auto; }
+.brand-logo { width: 170px; max-width: 30vw; height: auto; display: block; flex-shrink: 0; object-fit: contain; }
 .eyebrow { margin: 0 0 4px; font-weight: 700; color: var(--blue); }
 h1 { margin: 0; font-size: 30px; }
 .subtitle, .muted { color: var(--muted); }
