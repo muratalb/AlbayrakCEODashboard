@@ -3,24 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CEO Weekly Operations Dashboard | Albayrak Grubu</title>
+    <title>Albayrak Grubu Haftalık Yönetim Ritmi Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="dashboard">
       <header class="topbar card">
-        <div>
-          <p class="eyebrow">Albayrak Grubu</p>
-          <h1>CEO Haftalık Operasyon Dashboard</h1>
-          <p class="subtitle">Toplantı Özeti • Haftalık Operasyon Performansı</p>
+        <div class="brand">
+          <img src="logo.svg" alt="Albayrak Grubu" class="brand-logo" />
+          <div>
+            <p class="eyebrow">Albayrak Grubu</p>
+            <h1>Albayrak Grubu Haftalık Yönetim Ritmi Dashboard</h1>
+            <p class="subtitle">Toplantı Özeti • Haftalık Operasyon Performansı</p>
+          </div>
         </div>
         <div class="header-actions">
+          <a class="btn ghost" href="veri-giris.html">2. Sayfa: Veri Giriş</a>
           <div class="week-box">
             <p>Rapor Tarihi</p>
             <strong id="reportDate"></strong>
@@ -45,6 +46,14 @@
           <button class="tab" data-tab="mechanical">Mekanik</button>
         </div>
       </section>
+
+      <article class="card section-card" id="section-production-charts" data-group="all">
+        <div class="section-head">
+          <h2>Üretim Grafikleri</h2>
+          <span class="muted">Beton (m³) ve Agrega (ton) karşılaştırmalı görünüm</span>
+        </div>
+        <div class="chart-grid" id="productionCharts"></div>
+      </article>
 
       <div class="layout-grid">
         <section class="main-column">
@@ -130,31 +139,37 @@
             </div>
           </article>
 
-          <article class="card section-card split-2" id="section-fleet" data-group="fleet">
-            <div>
-              <div class="section-head"><h2>Araç ve İş Makinesi</h2></div>
-              <ul class="metric-list" id="vehicleMetrics"></ul>
-              <h3>Açık Arızalar</h3>
-              <ul id="openFaults" class="bullet-list"></ul>
-            </div>
-            <div>
-              <h3>Planlı Bakımlar</h3>
-              <ul id="plannedVehicleMaint" class="bullet-list"></ul>
-              <h3>Yedek Parça</h3>
-              <p id="waitingSpare" class="muted"></p>
+          <article class="card section-card" id="section-fleet" data-group="fleet">
+            <div class="section-head"><h2>Araç ve İş Makinesi</h2><span class="muted">Özet KPI + açık arızalar</span></div>
+            <div class="mini-kpis" id="fleetMiniKpis"></div>
+            <div class="chart-grid two" id="fleetCharts"></div>
+            <div class="split-2">
+              <div>
+                <h3>Açık Arızalar</h3>
+                <ul id="openFaults" class="bullet-list"></ul>
+              </div>
+              <div>
+                <h3>Planlı Bakımlar</h3>
+                <ul id="plannedVehicleMaint" class="bullet-list"></ul>
+                <h3>Yedek Parça</h3>
+                <p id="waitingSpare" class="muted"></p>
+              </div>
             </div>
           </article>
 
-          <article class="card section-card split-2" id="section-mechanical" data-group="mechanical">
-            <div>
-              <div class="section-head"><h2>Mekanik Durum</h2></div>
-              <ul class="metric-list" id="mechanicMetrics"></ul>
-              <h3>Kritik Tesis Arızaları</h3>
-              <ul id="mechanicCritical" class="bullet-list"></ul>
-            </div>
-            <div>
-              <h3>Yönetim Onayı Gerekenler</h3>
-              <ul id="mechanicApprovals" class="bullet-list"></ul>
+          <article class="card section-card" id="section-mechanical" data-group="mechanical">
+            <div class="section-head"><h2>Mekanik Durum</h2><span class="muted">Kritik arızalar, bakım ve yönetim gündemi</span></div>
+            <div class="mini-kpis" id="mechanicalMiniKpis"></div>
+            <div class="chart-grid two" id="mechanicalCharts"></div>
+            <div class="split-2">
+              <div>
+                <h3>Kritik Tesis Arızaları</h3>
+                <ul id="mechanicCritical" class="bullet-list"></ul>
+              </div>
+              <div>
+                <h3>Yönetim Onayı Gerekenler</h3>
+                <ul id="mechanicApprovals" class="bullet-list"></ul>
+              </div>
             </div>
           </article>
         </section>

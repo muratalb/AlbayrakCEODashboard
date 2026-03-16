@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="180" viewBox="0 0 520 180" role="img" aria-label="Albayrak Logo">
+  <g fill="none" fill-rule="evenodd">
+    <path d="M100 108 L260 0 L420 108 L360 108 L260 40 L160 108 Z" fill="#F71020"/>
+    <path d="M165 132 L260 64 L355 132 L315 132 L260 92 L205 132 Z" fill="#F71020"/>
+    <text x="12" y="172" font-family="Inter, Arial, sans-serif" font-size="40" letter-spacing="16" fill="#454B56">ALBAYRAK</text>
+  </g>
+</svg>
